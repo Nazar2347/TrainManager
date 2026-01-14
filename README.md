@@ -1,7 +1,8 @@
 # Train Mananger
 
 Small project for Java subject in WSB-NLU
-
+##Project Class and sequence diagram
+![ClassDiagram](Diagrams/Whiteboard.png)
 
 
 Prerequisites:
