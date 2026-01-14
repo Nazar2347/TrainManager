@@ -1,0 +1,41 @@
+# Build output
+bin/
+out/
+target/
+build.bat
+run.bat
+
+# Compiled class files
+*.class
+
+# Archives
+*.jar
+*.war
+*.ear
+
+# IDE / editor configs
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs and temporary files
+*.log
+*.tmp
+*.cache
+*.bak
+*.bat
+
+
+# Environment files
+.env
+*.env
