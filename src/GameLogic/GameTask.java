@@ -15,10 +15,10 @@ public GameTask(Station stationA, Station stationB, Cargo[] cargoRequired, int r
     this.rewardPoints = rewardPoints;
 };
 public void completeTask() {
-    // Logic t  o complete the task
+    //TODO: Logic to complete the task
 };
 public void calculateDeliveredCargo()
 {
-    // Logic to calculate delivery
+    //TODO: Logic to calculate delivery
 }
 }

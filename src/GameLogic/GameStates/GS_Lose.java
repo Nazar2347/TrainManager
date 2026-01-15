@@ -1,12 +1,16 @@
 package GameLogic.GameStates;
 
+import java.util.Scanner;
+
+import GameLogic.GameManager;
+
 /**
  * Lose state (renamed to GS_Lose).
  */
 public class GS_Lose extends GameState {
 
-    public GS_Lose() {
-        super();
+    public GS_Lose(GameManager gm) {
+        super(gm);
     }
 
     @Override
@@ -22,6 +26,13 @@ public class GS_Lose extends GameState {
     @Override
     public void processInput() {
         System.out.println("GS_Lose: processInput");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter [T] - to try again: ");
+        char Command = scanner.nextLine().charAt(0);
+        if (Command == 'T' || Command == 't') {
+            gameManager.SetState(new GS_Menu(gameManager));
+        }
+       
     }
 
 }
