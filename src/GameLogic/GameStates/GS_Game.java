@@ -1,5 +1,5 @@
 package GameLogic.GameStates;
-
+import Render.TrainRender;
 import java.util.Scanner;
 
 import GameLogic.GameManager;
@@ -12,11 +12,13 @@ public class GS_Game extends GameState {
 
     public GS_Game(GameManager gm) {
         super(gm);
+        
     }
-
+    
     @Override
     public void render() {
-        System.out.println("GS_Game: render");
+        TrainRender trainRender=new TrainRender();
+        trainRender.RenderTrain();
     }
 
     @Override
