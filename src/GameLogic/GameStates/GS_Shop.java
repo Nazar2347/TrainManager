@@ -1,5 +1,8 @@
 package GameLogic.GameStates;
 
+import java.util.Scanner;
+
+import GameLogic.GameManager;
 import GameLogic.Player;
 import GameObjects.Locomotive;
 import GameObjects.Wagon;
@@ -12,8 +15,8 @@ public class GS_Shop extends GameState {
     private Locomotive[] availableLocomotives;
     private Wagon[] availableWagons;
 
-    public GS_Shop() {
-        super();
+    public GS_Shop(GameManager gm) {
+        super(gm);
     }
 
     @Override
@@ -29,18 +32,28 @@ public class GS_Shop extends GameState {
     @Override
     public void processInput() {
         System.out.println("GS_Shop: processInput");
+          Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter [C] to continue | [E] to go back to assamble: ");
+        char Command = scanner.nextLine().charAt(0);
+        if (Command == 'C' || Command == 'c') {
+            gameManager.SetState(new GS_Game(gameManager));
+        }
+        else if(Command == 'E' || Command == 'e')
+        {
+           gameManager.SetState(new GS_Assemble(gameManager));
+        }
     }
 
     private void buyFuel() {
-        // Implementation for buying fuel and refueling locomotives
+        //TODO: Implementation for buying fuel and refueling locomotives
     }
 
     public void buyLocomotive() {
-        // Implementation for purchasing a locomotive
+        //TODO: Implementation for purchasing a locomotive
     }
 
     public void buyWagon() {
-        // Implementation for purchasing a wagon
+        //TODO: Implementation for purchasing a wagon
     }
 
 }

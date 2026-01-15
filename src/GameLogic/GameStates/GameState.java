@@ -1,9 +1,11 @@
 package GameLogic.GameStates;
+import GameLogic.GameManager;
 
 public abstract class GameState {
 
-    public GameState() {
-        
+    protected GameManager gameManager;
+    public GameState(GameManager gm) {
+        this.gameManager = gm;
     }
 
     public abstract void render();

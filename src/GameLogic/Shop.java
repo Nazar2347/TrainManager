@@ -8,15 +8,15 @@ public class Shop {
     private Wagon[] availableWagons;
     private void BuyFuel()
     {
-        // Implementation for buying fuel and refueling locomotives
+        //TODO: Implementation for buying fuel and refueling locomotives
     };
     public void BuyLocomotive()
     {
-        // Implementation for purchasing a locomotive
+        //TODO: Implementation for purchasing a locomotive
     };
     public void BuyWagon()
     {
-        // Implementation for purchasing a wagon
+        //TODO: Implementation for purchasing a wagon
     };
 
     
