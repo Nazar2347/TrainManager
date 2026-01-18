@@ -9,6 +9,11 @@ private String playerName;
 private Locomotive[] ownedLocomotives;
 private Wagon[] ownedWagons;
 
+
+public String getName()
+{
+    return playerName;
+}
 public void Input_Drive()
 {
 
