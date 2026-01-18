@@ -81,7 +81,6 @@ private String trainAnimation [] = {
     {
         for (String frame : trainAnimation) {
             ClearRender();
-            ClearRender();
             System.out.println(frame);
 
             try { //required by Java for sleep function
@@ -93,7 +92,8 @@ private String trainAnimation [] = {
     }
     protected void ClearRender()
     {
-          System.out.print("\033[H\033[2J"); // clear console
+        //TODO::Clear Console
+        //System.out.print("\033[H\033[2J"); 
         System.out.flush();
         
     }

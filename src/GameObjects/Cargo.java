@@ -1,9 +1,11 @@
 package GameObjects;
 
-/**
- * Represents cargo carried by wagons or carts.
- */
-public abstract class Cargo implements Object {
-   
 
+public abstract class Cargo implements Object {
+   protected float mass;
+
+   public float GetMass()
+   {
+       return mass;
+   }
 }
