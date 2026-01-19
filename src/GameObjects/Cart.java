@@ -4,9 +4,16 @@ public abstract class Cart implements Object {
     protected float emptyMass;
     protected float maxMass;
     protected float currentMass;
+    protected String name;
 
-    public Cart(float emptyMass, float maxMass)
+    @Override
+    public String getName()
     {
+        return name;
+    }
+    public Cart(String name, float emptyMass, float maxMass)
+    {
+        this.name = name;
         this.emptyMass = emptyMass;
         this.maxMass = maxMass;
         this.currentMass = emptyMass;

@@ -13,9 +13,9 @@ private int maxWagons;
 private float maxTowedMass;
 private float currentTowedMass;
 
-public Locomotive(float emptyMass, float maxMass, float fuelCapacity, float fuelConsumptionRate, int maxWagons, float maxTowedMass)
+public Locomotive(String name, float emptyMass, float maxMass, float fuelCapacity, float fuelConsumptionRate, int maxWagons, float maxTowedMass)
 {
-    super(emptyMass, maxMass);
+    super(name,emptyMass, maxMass);
     this.fuelCapacity = fuelCapacity;
     this.currentFuelLevel = fuelCapacity; // Start with full tank
     this.fuelConsumptionRate = fuelConsumptionRate;
@@ -81,6 +81,10 @@ public void DetachWagon(short wagonIndex)
     Wagon wagon = attachedWagons.get(wagonIndex);
     attachedWagons.remove(wagonIndex);
     currentTowedMass -= wagon.GetMass();
+};
+public String getName()
+{
+   return name;
 };
 
 public void OnBeginPlay()

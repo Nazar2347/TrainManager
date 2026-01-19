@@ -3,8 +3,9 @@ package GameLogic.GameStates;
 import java.util.Scanner;
 
 import GameLogic.GameManager;
-
-import GameLogic.GameStates.E_AssembleSubPage;
+import GameLogic.Player;
+import GameObjects.Locomotive;
+import GameObjects.Wagon;
 
 /**
  * Assemble state (renamed to GS_Assemble).
@@ -25,10 +26,10 @@ public class GS_Assemble extends GameState {
                 //TODO: Render main assemble page
                 break;
             case CHOOSE_LOCOMOTIVE:
-                //TODO: Render choose locomotive page
+                Render_LocomotiveSelection();
                 break;
             case CHOOSE_WAGON:
-                //TODO: Render choose wagon page
+                Render_WagonSelection();
                 break;
             default:
                 break;
@@ -111,7 +112,6 @@ public class GS_Assemble extends GameState {
     @Override
     public void processInput() {
        
-
         switch (currentSubPage) {
             case MAIN:
                 ProcessInput_MainPage();
@@ -127,6 +127,43 @@ public class GS_Assemble extends GameState {
                 break;
         }
 
+    }
+   
+
+    public void Render_LocomotiveSelection()
+    {
+        Player player = gameManager.getPlayer();
+        if (player == null) {
+            System.out.println("No player assigned.");
+            return;
+        }
+        if (player.GetOwnedLocomotives().isEmpty()) {
+            System.out.println("You do not own any locomotives.");
+            return;
+        }
+
+        System.out.println("Your current owned locomotives:");
+        for (Locomotive loco : player.GetOwnedLocomotives()) {
+            System.out.println("- " + loco.getName());
+        }
+    }
+    public void Render_WagonSelection()
+    {
+        Player player = gameManager.getPlayer();
+        if (player == null) 
+        {
+            System.out.println("No player assigned.");
+            return;
+        }
+        if (player.GetOwnedWagons().isEmpty()) 
+        {
+            System.out.println("You do not own any wagons.");
+            return;
+        }
+        System.out.println("Your current owned wagons:");
+        for (Wagon wagon : player.GetOwnedWagons()) {
+            System.out.println("- " + wagon.getName());
+        }
     }
 
 }

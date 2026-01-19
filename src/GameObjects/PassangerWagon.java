@@ -2,9 +2,9 @@ package GameObjects;
 
 public class PassangerWagon extends Wagon {
 
-    PassangerWagon(float emptyMass, float maxMass)
+    public PassangerWagon(String name, float emptyMass, float maxMass)
     {
-        super(emptyMass, maxMass);
+        super(name,emptyMass, maxMass);
     }
     @Override
     protected void LoadCargo(Cargo cargo) 
