@@ -10,8 +10,8 @@ public class Main {
         System.out.println("{Train Manager}");
         gameManager.LoadPlayerData("profiles/TestProfile1/Player1.txt");
         while(gameManager.isRunning()) {
-            gameManager.ReceiveInput();
             gameManager.Render();
+            gameManager.ReceiveInput();
             gameManager.Update();
         }
     }

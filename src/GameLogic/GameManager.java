@@ -27,8 +27,8 @@ public class GameManager {
         //TODO:: Load Player Data from file
         FileReaderUtils fileReader = new FileReaderUtils();
         player = fileReader.LoadPlayer(filePath);
-        player.AddLocomotiveSetToInventory(fileReader.GetLocomotive(filePath));
-        player.AddWagonSetToInventory(fileReader.LoadWagon(filePath));
+        player.AddLocomotiveSetToInventory(fileReader.LoadLocomotives(filePath));
+        player.AddWagonSetToInventory(fileReader.LoadWagons(filePath));
 
     };
     public void UpdatePlayerData()
