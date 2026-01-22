@@ -6,9 +6,11 @@ public abstract class Wagon extends Cart
  {
     
     protected HashSet<Cargo> loadedCargo;
-    public Wagon(String name, float emptyMass, float maxMass)
+    
+    public Wagon(String name,float emptyMass, float maxMass)
     {
         super(name, emptyMass, maxMass);
+        
     };
     
     

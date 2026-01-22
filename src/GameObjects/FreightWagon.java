@@ -2,8 +2,10 @@ package GameObjects;
 
 public class FreightWagon extends Wagon {
 
-    public FreightWagon(String name, float emptyMass, float maxMass) {
+    protected E_WagonType type;
+    public FreightWagon(String name,E_WagonType wagonType, float emptyMass, float maxMass) {
         super(name, emptyMass, maxMass);
+        this.type = wagonType;
     }
 
     @Override
@@ -27,5 +29,9 @@ public class FreightWagon extends Wagon {
             currentMass -= cargo.GetMass();
         }
         loadedCargo.clear();
+    }
+    public E_WagonType getFreighType()
+    {
+        return type;
     }
 }

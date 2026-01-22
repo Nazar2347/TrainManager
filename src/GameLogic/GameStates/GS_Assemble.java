@@ -8,6 +8,7 @@ import GameLogic.Player;
 import GameObjects.Locomotive;
 import GameObjects.Wagon;
 import Render.TrainRender;
+import Render.WagonRender;
 
 /**
  * Assemble state (renamed to GS_Assemble).
@@ -167,7 +168,9 @@ public class GS_Assemble extends GameState {
         }
         System.out.println("Your current owned wagons:");
         for (Wagon wagon : player.GetOwnedWagons()) {
-            System.out.println("- " + wagon.getName());
+            WagonRender render= new WagonRender();
+            System.out.println(render.RenderWagon(wagon));
+            System.out.println("[" + wagon.getName()+"]\n");
         }
     }
 

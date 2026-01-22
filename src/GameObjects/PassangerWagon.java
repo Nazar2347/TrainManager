@@ -4,7 +4,7 @@ public class PassangerWagon extends Wagon {
 
     public PassangerWagon(String name, float emptyMass, float maxMass)
     {
-        super(name,emptyMass, maxMass);
+        super(name, emptyMass, maxMass);
     }
     @Override
     protected void LoadCargo(Cargo cargo) 

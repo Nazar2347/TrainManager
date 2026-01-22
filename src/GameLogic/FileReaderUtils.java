@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.HashSet;
 
 import GameObjects.E_LocomotiveType;
+import GameObjects.E_WagonType;
 import GameObjects.FreightWagon;
 import GameObjects.Locomotive;
 import GameObjects.PassangerWagon;
@@ -103,6 +104,7 @@ public class FileReaderUtils {
                             try
                             {
                                 String wagonType = wagonParts[0].toUpperCase();
+                                
                                 String wagonName = wagonParts[1];
                                 float emptyMass = Float.parseFloat(wagonParts[2]);
                                 float maxMass = Float.parseFloat(wagonParts[3]);
@@ -110,9 +112,18 @@ public class FileReaderUtils {
                                 Wagon wagon = null;
                                 if (wagonType.equals("FREIGHT"))
                                 {
-                                    wagon = new FreightWagon(wagonName, emptyMass, maxMass);
+                                    if (wagonParts.length<4)
+                                    {
+                                        System.err.println("Unknown freight wagon type: " + wagonType);
+                                        return null;
+                                    }
+                                    String sFreightType= wagonParts[4];
+                                    E_WagonType freightType = E_WagonType.valueOf(sFreightType);
+                            
+                                    wagon = new FreightWagon(wagonName,freightType, emptyMass, maxMass);
                                     wagons.add(wagon);
-                                } else if (wagonType.equals("PASSENGER"))
+                                } 
+                                else if (wagonType.equals("PASSENGER"))
                                 {
                                     wagon = new PassangerWagon(wagonName, emptyMass, maxMass);
                                     wagons.add(wagon);

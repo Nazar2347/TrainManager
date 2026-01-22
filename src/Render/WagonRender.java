@@ -1,5 +1,10 @@
 package Render;
 
+import GameObjects.E_WagonType;
+import GameObjects.FreightWagon;
+import GameObjects.PassangerWagon;
+import GameObjects.Wagon;
+
 public class WagonRender {
 
     String GoodsWagood =
@@ -33,7 +38,32 @@ public class WagonRender {
     "  ╔=============╗ \r\n" + 
     "  ║■■■■■■■■■■■▌█║ \r\n" + 
     ",_║____________█║_\r\n" + 
-    "    OOO     OOO    \n";
+    "    OOO     OOO    ";
 
+    public String RenderWagon(Wagon wagon)
+    {
+        if (wagon.getClass()==FreightWagon.class)
+        {
+            FreightWagon freightWagon = ((FreightWagon)wagon);
+            E_WagonType wagonType = freightWagon.getFreighType();
+            switch (wagonType) {
+                case WOOD:
+                    return WoodWagon;
+                case GOODS:
+                    return GoodsWagood;
+                case GRAIN:
+                    return CoalWagon;
+                case OIL:
+                    return TankerWagon;
+                default:
+                    return GoodsWagood;
+            }
+        }
+        else if (wagon.getClass()==PassangerWagon.class)
+        {
+            return PassangerWagon;
+        }
+        return GoodsWagood;
+    }
 }
 
