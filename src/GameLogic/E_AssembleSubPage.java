@@ -1,4 +1,4 @@
-package GameLogic.GameStates;
+package GameLogic;
 
 public enum E_AssembleSubPage {
     MAIN,

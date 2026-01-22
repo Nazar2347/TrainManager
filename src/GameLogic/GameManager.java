@@ -7,9 +7,11 @@ public class GameManager {
 
     private GameState currentState;
     private boolean isRunning;
-    public GameManager()
+    private Player player;
+    public GameManager(Player player)
     {
         currentState = new GS_Menu(this);  
+        this.player = player;
         isRunning = true;
     };
     public void SetState(GameState newState)
@@ -18,6 +20,15 @@ public class GameManager {
     };
     public void LoadMission()
     {
+
+    };
+    public void LoadPlayerData(String filePath)
+    {
+        //TODO:: Load Player Data from file
+        FileReaderUtils fileReader = new FileReaderUtils();
+        player = fileReader.LoadPlayer(filePath);
+        player.AddLocomotiveSetToInventory(fileReader.LoadLocomotives(filePath));
+        player.AddWagonSetToInventory(fileReader.LoadWagons(filePath));
 
     };
     public void UpdatePlayerData()
@@ -43,5 +54,9 @@ public class GameManager {
     public boolean isRunning()
     {
         return isRunning;
+    }
+    public Player getPlayer()
+    {
+        return player;
     }
 }

@@ -2,8 +2,8 @@ package GameObjects;
 
 public class FreightWagon extends Wagon {
 
-    public FreightWagon(float emptyMass, float maxMass) {
-        super(emptyMass, maxMass);
+    public FreightWagon(String name, float emptyMass, float maxMass) {
+        super(name, emptyMass, maxMass);
     }
 
     @Override

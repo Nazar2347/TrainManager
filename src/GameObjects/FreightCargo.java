@@ -3,6 +3,11 @@ package GameObjects;
 public class FreightCargo extends Cargo {
 private E_CargoType cargoType;
     
+
+    @Override
+    public String getName() {
+        return cargoType.toString() + " Cargo";
+    }
     public FreightCargo(E_CargoType cargoType) {
         this.cargoType = cargoType;
     }

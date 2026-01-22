@@ -1,5 +1,7 @@
 package Render;
 
+import GameObjects.E_LocomotiveType;
+
 public class TrainRender {
 
     private String trainVisual1 = 
@@ -77,6 +79,32 @@ private String trainAnimation [] = {
     trainVisual7,
     trainVisual8
 };
+
+private String TrainType1 = 
+"   . . . . o o o o o       \n"+
+"         _____      o      \n"+
+" ____====  ]OO|_n_n__][.   \n"+
+"[________]_|__|________)<  \n"+
+" oo    oo  'oo OOOO-| oo\\_\n";
+
+private String TrainType2 = 
+        "   _┌┬┐_________  \n"+
+        "  /[]|  ■■   |[]| \n"+
+        " >|__|_______|__|_ \n"+
+        "  /OOO└---┘  OOO/  \n";
+
+private String TrainType3 = 
+        "______________    \n" + //
+        "| ░░░       [\\┐  \n" + //
+        "|______________|< \n" + //
+        " OOO▀≡▀└---┘OOO\\ \\";
+private String TrainType4 = 
+        " »┌----------------┐« \n" + //
+        " //[]|▓▓▓       |[]\\ \n" + //
+        " [___|__________|___] \n" + //
+        "≤()^()▀≡▀└---┘═▀()^()≥";
+
+
     public void RenderTrain()  //just for sake of animation
     {
         for (String frame : trainAnimation) {
@@ -88,6 +116,25 @@ private String trainAnimation [] = {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
+        }
+    }
+    public String RenderLocomotive(E_LocomotiveType locotype)
+    {
+        if (locotype == null)
+        {
+            return "NULL locomotive Type";
+        }
+        switch (locotype) {
+            case E_Type1:
+                return TrainType1;
+            case E_Type2:
+                return TrainType2;
+            case E_Type3:
+                return TrainType3;
+            case E_Type4:
+                return TrainType4;
+            default:
+                return TrainType1;
         }
     }
     protected void ClearRender()

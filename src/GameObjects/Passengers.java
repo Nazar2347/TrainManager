@@ -5,7 +5,10 @@ public class Passengers extends Cargo
     private String destination;
     private int numberOfPassengers;
 
-
+    @Override
+    public String getName() {
+        return "Passengers to " + destination;
+    }
     
     public Passengers(String destination, int numberOfPassengers) {
         this.destination = destination;

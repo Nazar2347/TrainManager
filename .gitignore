@@ -1,12 +1,11 @@
 # Build output
-bin/
+
 out/
 target/
-build.bat
-run.bat
+
 
 # Compiled class files
-*.class
+
 
 # Archives
 *.jar
@@ -33,7 +32,6 @@ desktop.ini
 *.tmp
 *.cache
 *.bak
-*.bat
 
 
 # Environment files
