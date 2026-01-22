@@ -77,6 +77,32 @@ private String trainAnimation [] = {
     trainVisual7,
     trainVisual8
 };
+
+private String TrainType1 = 
+"   . . . . o o o o o       \n"+
+"         _____      o      \n"+
+" ____====  ]OO|_n_n__][.   \n"+
+"[________]_|__|________)<  \n"+
+" oo    oo  'oo OOOO-| oo\\_\n";
+
+private String TrainType2 = 
+        "   _┌┬┐_________  \n"+
+        "  /[]|  ■■   |[]| \n"+
+        " >|__|_______|__|_ \n"+
+        "  /OOO└---┘  OOO/  \n";
+
+private String TrainType3 = 
+        "______________    \n" + //
+        "| ░░░       [\\┐  \n" + //
+        "|______________|< \n" + //
+        " OOO▀≡▀└---┘OOO\\ \\";
+private String TrainType4 = 
+"       »  ┌----------------┐« \n" + //
+        " //[]|▓▓▓       |[]\\ \n" + //
+        " [___|__________|___] \n" + //
+        "≤()^()▀≡▀└---┘═▀()^()≥";
+
+
     public void RenderTrain()  //just for sake of animation
     {
         for (String frame : trainAnimation) {
