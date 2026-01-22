@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Locomotive extends Cart {
 private String driverName;
+private E_LocomotiveType type;
 private float fuelCapacity;
 private float currentFuelLevel;
 private float fuelConsumptionRate; // fuel consumed per unit distance
@@ -13,9 +14,10 @@ private int maxWagons;
 private float maxTowedMass;
 private float currentTowedMass;
 
-public Locomotive(String name, float emptyMass, float maxMass, float fuelCapacity, float fuelConsumptionRate, int maxWagons, float maxTowedMass)
+public Locomotive(String name,E_LocomotiveType locotype, float emptyMass, float maxMass, float fuelCapacity, float fuelConsumptionRate, int maxWagons, float maxTowedMass)
 {
     super(name,emptyMass, maxMass);
+    this.type =locotype;
     this.fuelCapacity = fuelCapacity;
     this.currentFuelLevel = fuelCapacity; // Start with full tank
     this.fuelConsumptionRate = fuelConsumptionRate;
@@ -31,7 +33,10 @@ public void RemoveDriver()
 {
     this.driverName = null;
 }
-
+public E_LocomotiveType GetLocomotiveType()
+{
+    return this.type;
+}
 public void Input_Drive()
 {
     if(driverName ==null)

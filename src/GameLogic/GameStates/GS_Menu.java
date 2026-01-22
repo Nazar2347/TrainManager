@@ -12,7 +12,6 @@ public class GS_Menu extends GameState {
     public GS_Menu(GameManager gm) {
         super(gm);
     }
-
     @Override
     public void render() {
         System.out.println("GS_Menu: render");

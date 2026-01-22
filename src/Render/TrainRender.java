@@ -1,5 +1,7 @@
 package Render;
 
+import GameObjects.E_LocomotiveType;
+
 public class TrainRender {
 
     private String trainVisual1 = 
@@ -97,7 +99,7 @@ private String TrainType3 =
         "|______________|< \n" + //
         " OOO▀≡▀└---┘OOO\\ \\";
 private String TrainType4 = 
-"       »  ┌----------------┐« \n" + //
+        " »┌----------------┐« \n" + //
         " //[]|▓▓▓       |[]\\ \n" + //
         " [___|__________|___] \n" + //
         "≤()^()▀≡▀└---┘═▀()^()≥";
@@ -114,6 +116,25 @@ private String TrainType4 =
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
+        }
+    }
+    public String RenderLocomotive(E_LocomotiveType locotype)
+    {
+        if (locotype == null)
+        {
+            return "NULL locomotive Type";
+        }
+        switch (locotype) {
+            case E_Type1:
+                return TrainType1;
+            case E_Type2:
+                return TrainType2;
+            case E_Type3:
+                return TrainType3;
+            case E_Type4:
+                return TrainType4;
+            default:
+                return TrainType1;
         }
     }
     protected void ClearRender()

@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashSet;
 
+import GameObjects.E_LocomotiveType;
 import GameObjects.FreightWagon;
 import GameObjects.Locomotive;
 import GameObjects.PassangerWagon;
@@ -35,19 +36,21 @@ public class FileReaderUtils {
                     if (key.equals("LOCOMOTIVE"))
                     {
                         String[] locoParts = value.split(",");
-                        if (locoParts.length >= 7)
+                        if (locoParts.length >= 8)
                         {
                             try
                             {
                                 String locoName = locoParts[0];
-                                float emptyMass = Float.parseFloat(locoParts[1]);
-                                float maxMass = Float.parseFloat(locoParts[2]);
-                                float fuelCapacity = Float.parseFloat(locoParts[3]);
-                                float fuelConsumptionRate = Float.parseFloat(locoParts[4]);
-                                int maxWagons = Integer.parseInt(locoParts[5]);
-                                float maxTowedMass = Float.parseFloat(locoParts[6]);
+                                String sLocoType = locoParts[1];
+                                E_LocomotiveType locotype =E_LocomotiveType.valueOf(sLocoType);
+                                float emptyMass = Float.parseFloat(locoParts[2]);
+                                float maxMass = Float.parseFloat(locoParts[3]);
+                                float fuelCapacity = Float.parseFloat(locoParts[4]);
+                                float fuelConsumptionRate = Float.parseFloat(locoParts[5]);
+                                int maxWagons = Integer.parseInt(locoParts[6]);
+                                float maxTowedMass = Float.parseFloat(locoParts[7]);
 
-                                Locomotive locomotive = new Locomotive(locoName, emptyMass, maxMass, fuelCapacity, fuelConsumptionRate, maxWagons, maxTowedMass);
+                                Locomotive locomotive = new Locomotive(locoName,locotype, emptyMass, maxMass, fuelCapacity, fuelConsumptionRate, maxWagons, maxTowedMass);
                                 System.out.println("Locomotive loaded: " + locoName);
                                 locomotives.add(locomotive);
                             } catch (NumberFormatException e)
@@ -61,7 +64,8 @@ public class FileReaderUtils {
             System.out.println("Player data loaded successfully from: " + filePath);
             return locomotives;
 
-        } catch (IOException e)
+        } 
+        catch (IOException e)
         {
             System.err.println("Error loading player data: " + e.getMessage());
             return null;

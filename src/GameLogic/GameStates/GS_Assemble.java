@@ -2,10 +2,12 @@ package GameLogic.GameStates;
 
 import java.util.Scanner;
 
+import GameLogic.E_AssembleSubPage;
 import GameLogic.GameManager;
 import GameLogic.Player;
 import GameObjects.Locomotive;
 import GameObjects.Wagon;
+import Render.TrainRender;
 
 /**
  * Assemble state (renamed to GS_Assemble).
@@ -144,7 +146,10 @@ public class GS_Assemble extends GameState {
 
         System.out.println("Your current owned locomotives:");
         for (Locomotive loco : player.GetOwnedLocomotives()) {
-            System.out.println("- " + loco.getName());
+            TrainRender render= new TrainRender();
+            System.out.println(render.RenderLocomotive(loco.GetLocomotiveType()));
+            System.out.println("[ " + loco.getName()+" ]\n");
+
         }
     }
     public void Render_WagonSelection()
