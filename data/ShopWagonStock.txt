@@ -1,0 +1,8 @@
+#Arguments, wagonType, name, emptyMass, maxMass,FreightType
+WAGON=FREIGHT,WoodCariage,500,3000,WOOD
+WAGON=FREIGHT,FreightCarriage,750,2500,GOODS
+WAGON=FREIGHT,GrainCarriage,750,2000,GRAIN,
+WAGON=FREIGHT,Tanker,1000,2500,OIL
+
+WAGON=PASSENGER,PassengerCar1,600,2000
+

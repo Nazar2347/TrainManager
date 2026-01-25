@@ -85,24 +85,24 @@ private String TrainType1 =
 "         _____      o      \n"+
 " ____====  ]OO|_n_n__][.   \n"+
 "[________]_|__|________)<  \n"+
-" oo    oo  'oo OOOO-| oo\\_";
+" oo    oo  'oo OOOO-| oo\\_\n";
 
 private String TrainType2 = 
         "   _┌┬┐_________  \n"+
         "  /[]|  ■■   |[]| \n"+
         " >|__|_______|__|_ \n"+
-        "  /OOO└---┘  OOO/  ";
+        "  /OOO└---┘  OOO/  \n";
 
 private String TrainType3 = 
         "______________    \n" + //
-        "| ░░░       [\\┐  \n" + //
+        "| ░░░       [\\\\┐  \n" + //
         "|______________|< \n" + //
-        " OOO▀≡▀└---┘OOO\\ \\";
+        " OOO▀≡▀└---┘OOO\\ \\ \n";
 private String TrainType4 = 
         " »┌----------------┐« \n" + //
-        " //[]|▓▓▓       |[]\\ \n" + //
+        "  /[]|▓▓▓       |[]\\ \n" + //
         " [___|__________|___] \n" + //
-        "≤()^()▀≡▀└---┘═▀()^()≥";
+        "≤()^()▀≡▀└---┘═▀()^()≥\n";
 
 
     public void RenderTrain()  //just for sake of animation

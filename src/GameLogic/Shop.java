@@ -1,18 +1,40 @@
 package GameLogic;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Vector;
 
 import GameObjects.Locomotive;
 import GameObjects.Wagon;
 
 public class Shop {
     private Player player;
-    private HashSet<Locomotive> availableLocomotives;
-    private HashSet <Wagon> availableWagons;
+    private Vector<Locomotive> availableLocomotives;
+    private Vector<Wagon> availableWagons;
     public Shop()
     {
-       FileReaderUtils fileReader = new FileReaderUtils();
-       availableLocomotives = fileReader.LoadLocomotives("data/ShopLocomotiveStock");
-       availableWagons = fileReader.LoadWagons("data/ShopWagonStock");
+        FileReaderUtils fileReader = new FileReaderUtils();
+        HashSet<Locomotive> locomotivesFromFile = fileReader.LoadLocomotives("data/ShopLocomotiveStock.txt");
+        HashSet<Wagon> wagonsFromFile = fileReader.LoadWagons("data/ShopWagonStock.txt");
+      
+        if (locomotivesFromFile.isEmpty())
+        {
+            System.out.println("Error: Failed to load hasset of locomotives");
+            return;
+        }
+        if (wagonsFromFile.isEmpty())
+        {
+            System.out.println("Error: Failed to load hasset of locomotives");
+            return;
+        }
+        availableLocomotives = new Vector<Locomotive>(locomotivesFromFile.size());
+        availableWagons = new Vector<Wagon>(wagonsFromFile.size());
+
+        availableLocomotives.addAll(locomotivesFromFile);
+        availableWagons.addAll(wagonsFromFile);
+        
+
+
         
     }
     public void BuyFuel()
@@ -27,11 +49,11 @@ public class Shop {
     {
         //TODO: Implementation for purchasing a wagon
     };
-    public HashSet<Wagon>GetAvaliableWagons()
+    public Vector<Wagon>GetAvaliableWagons()
     {
         return availableWagons;
     }
-    public HashSet<Locomotive>GetAvlaiableLocomotives()
+    public Vector<Locomotive>GetAvlaiableLocomotives()
     {
         return availableLocomotives;
     }

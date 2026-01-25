@@ -68,7 +68,7 @@ public class FileReaderUtils {
         } 
         catch (IOException e)
         {
-            System.err.println("Error loading player data: " + e.getMessage());
+            System.err.println("Error loading comotive data: " + e.getMessage());
             return null;
         }
 
@@ -149,7 +149,7 @@ public class FileReaderUtils {
 
         } catch (IOException e)
         {
-            System.err.println("Error loading player data: " + e.getMessage());
+            System.err.println("Error loading wagons data: " + e.getMessage());
             return null;
         }
     }

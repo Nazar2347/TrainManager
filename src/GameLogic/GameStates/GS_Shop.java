@@ -2,6 +2,7 @@ package GameLogic.GameStates;
 
 import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Vector;
 
 import GameLogic.GameManager;
 import GameLogic.Player;
@@ -94,9 +95,8 @@ public class GS_Shop extends GameState {
     public void ProcessInput_MainPage()
     {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("What would you like to buy?");
         System.out.println("[L]- Locomotives, [W]- wagons");
-        System.out.print("Enter [C] to continue | [E] to go back to assamble: ");
+        System.out.print("Enter [C] play | [E] to go back to assamble: ");
         char Command = scanner.nextLine().charAt(0);
         if (Command == 'C' || Command == 'c') {
             gameManager.SetState(new GS_Game(gameManager));
@@ -154,22 +154,34 @@ public class GS_Shop extends GameState {
     }
     public void Render_WagonSelection()
     {
+        if (shop.GetAvaliableWagons()==null)
+        {
+            System.out.println("No wagons are avaliable for shopping");
+            return;
+        }
         WagonRender render = new WagonRender();
-        HashSet<Wagon> wagons = new HashSet<Wagon>(shop.GetAvaliableWagons());
+        Vector <Wagon> wagons = new Vector<Wagon>(shop.GetAvaliableWagons());
         for (Wagon i : wagons)
         {
-            render.RenderWagon(i);
-            System.out.println("["+i.hashCode()+"] Price: "); //TODO: get Wagon price 
+            System.out.print(render.RenderWagon(i));
+            System.out.println("["+wagons.indexOf(i)+"] "+i.getName()+" Price: "); //TODO: get Wagon price 
         }
     }
     public void Render_LocomotiveSelection()
     {
+         if (shop.GetAvaliableWagons()==null)
+        {
+            System.out.println("No locomotives are avaliable for shopping");
+            return;
+        }
         TrainRender render = new TrainRender();
-        HashSet<Locomotive> loco = new HashSet<Locomotive>(shop.GetAvlaiableLocomotives());
+        Vector<Locomotive> loco = new Vector<Locomotive>(shop.GetAvlaiableLocomotives());
         for (Locomotive i : loco)
         {
-            render.RenderLocomotive(i.GetLocomotiveType());
-            System.out.println("["+i.hashCode()+"] Price: ");
+            String renderLoco =  render.RenderLocomotive(i.GetLocomotiveType());
+            System.out.print(renderLoco);
+            
+            System.out.println("["+loco.indexOf(i)+"]" +i.getName()+ "Price: ");
         }
     }
     public void Render_ShopMenu()
