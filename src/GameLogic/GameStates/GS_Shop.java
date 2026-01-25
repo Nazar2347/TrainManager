@@ -1,12 +1,11 @@
 package GameLogic.GameStates;
 
-import java.util.HashSet;
+
 import java.util.Scanner;
 import java.util.Vector;
 
 import GameLogic.GameManager;
 import GameLogic.Player;
-import GameObjects.E_LocomotiveType;
 import GameObjects.Locomotive;
 import GameObjects.Wagon;
 import Render.TrainRender;
@@ -17,7 +16,6 @@ import GameLogic.Shop;
  * Shop state (renamed to GS_Shop).
  */
 public class GS_Shop extends GameState {
-    private Player player;
     private Shop shop;
     private E_ShopSubPage page;
 
@@ -80,16 +78,37 @@ public class GS_Shop extends GameState {
         //TODO: Implementation for buying fuel and refueling locomotives
     }
 
-    public void buyLocomotive() {
-        // Show list of all trains (price - money)
-        TrainRender render = new TrainRender();
+    public void buyLocomotive(Player currentPlayer, Locomotive purcasedLocomotive) {
         
-        render.RenderLocomotive(E_LocomotiveType.E_Type1);
+        int playerBalance = currentPlayer.GetMoneyBalance();
+        int locomotivePrice = 100; // TODO: purchase locomotive
+        playerBalance-=locomotivePrice;
+        currentPlayer.SetMoneyBalance(playerBalance);
+        currentPlayer.AddLocomotiveToInventory(purcasedLocomotive);
+        
+
+        TrainRender render = new TrainRender();
+        String locomotiveRender =render.RenderLocomotive(purcasedLocomotive.GetLocomotiveType());
+        System.out.println(locomotiveRender);
+        System.out.println("You purchased: "+ purcasedLocomotive.getName()+" !");
+        System.out.println ("Balance $: "+playerBalance);
         //System.out.println("Locomotive:", )
     }
 
-    public void buyWagon() {
+    public void buyWagon(Player currentPlayer, Wagon purchasedWagon) {
         //TODO: Implementation for purchasing a wagon
+        int playerBalance = currentPlayer.GetMoneyBalance();
+        int wagonPrice = 100; // TODO: purchase wagon
+        playerBalance -= wagonPrice;
+        currentPlayer.SetMoneyBalance(playerBalance);
+        currentPlayer.AddWagonToInventory(purchasedWagon);
+
+        WagonRender render = new WagonRender();
+        String wagonRender = render.RenderWagon(purchasedWagon);
+        System.out.println(wagonRender);
+        System.out.println("You purchased: "+ purchasedWagon.getName()+" !");
+        System.out.println ("Balance $: "+playerBalance);
+        
     }
 
     public void ProcessInput_MainPage()
@@ -117,13 +136,34 @@ public class GS_Shop extends GameState {
     public void ProcessInput_ChooseLocomotivePage()
     {
         System.out.println("LocomotiveShop:");
-        System.out.println ("[C] Cancel, go back");
+        System.out.println("Type from [0 - "+shop.GetAvlaiableLocomotives().size()+
+            "] to buy certain locomotive");
+        System.out.println ("[99] Cancel, go back");
         Scanner scanner = new Scanner(System.in);
-        char Command = scanner.nextLine().charAt(0);
-         if (Command =='C'||Command =='c')
+        int Command = scanner.nextInt();
+        try 
         {
-            page = E_ShopSubPage.MAIN;
+            if (Command == 99)
+            {
+                page = E_ShopSubPage.MAIN;
+                return;
+            }
+            Locomotive loco = shop.GetAvlaiableLocomotives().get(Command);
+            if (loco != null)
+            {
+                buyLocomotive(gameManager.getPlayer(),loco);
+                ProcessInput_ChooseLocomotivePage();
+                return;
+            }
+
         }
+        catch(Exception e)
+        {
+            System.out.println("There is no locomotive under index ["+Command+"] ");
+            ProcessInput_ChooseLocomotivePage();
+            return;
+        }
+        
     }
     public void ProcessInput_ShopFuel()
     {
@@ -143,13 +183,31 @@ public class GS_Shop extends GameState {
     }
     public void ProcessInput_ChooseWagonPage()
     {
-        System.out.println("WagonShop:");
-        System.out.println("[C]-Cancel,return back");
+         System.out.println("LocomotiveShop:");
+        System.out.println("Type from [0 - "+shop.GetAvaliableWagons().size()+
+            "] to buy certain wagon");
+        System.out.println ("[99] Cancel, go back");
         Scanner scanner = new Scanner(System.in);
-        char Command = scanner.nextLine().charAt(0);
-        if (Command =='C'||Command =='c')
+        int Command = scanner.nextInt();
+        if (Command == 99)
         {
             page = E_ShopSubPage.MAIN;
+            return;
+        }
+        try 
+        {
+            Wagon wagon = shop.GetAvaliableWagons().get(Command);
+            if (wagon != null)
+            {
+                buyWagon(gameManager.getPlayer(),wagon);
+                ProcessInput_ChooseWagonPage();
+                return;
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println("There is no locomotive under index ["+Command+"] ");
+            ProcessInput_ChooseLocomotivePage();
         }
     }
     public void Render_WagonSelection()
