@@ -1,6 +1,7 @@
 package GameLogic.GameStates;
 
 import java.util.Scanner;
+import java.util.Vector;
 
 import GameLogic.E_AssembleSubPage;
 import GameLogic.GameManager;
@@ -91,26 +92,103 @@ public class GS_Assemble extends GameState {
 
     private void ProcessInput_ChooseLocomotivePage()
     {
-        System.out.println("GS_Assemble: Choose Locomotive");
-        System.out.println("[B] to go back to main page");
-         Scanner scanner = new Scanner(System.in);
-        char Command = scanner.nextLine().charAt(0);
-         if (Command == 'B' || Command == 'b') {
-            currentSubPage = E_AssembleSubPage.MAIN;
+        Player player = gameManager.getPlayer();
+        Vector<Locomotive> locomotiveArray = new Vector<Locomotive>(player.GetOwnedLocomotives());
+
+        Render_CurrentTrainSet();
+        if (!locomotiveArray.isEmpty())
+        {
+            System.out.println("Pick Locomotive to your trainp set: [0-"+(locomotiveArray.size()-1)+"]");
+        }
+        else
+        {
+            System.out.println("You do not have any locomotives in your inventory!!");
+        }
+        System.out.println("[99] to go back to main page");
+        Scanner scanner = new Scanner(System.in);
+        int Command = scanner.nextInt();
+        try 
+        {
+            if (Command == 99 ) 
+            {
+                currentSubPage = E_AssembleSubPage.MAIN;
+                return;
+            }
+
+            Locomotive loco = locomotiveArray.get(Command);
+            if (loco !=null)
+            {
+                //If there are locomotive in a set
+                if (player.getCurrentLocomotive()!= null)
+                {
+                    Locomotive oldLoco = player.getCurrentLocomotive();
+                    player.AddLocomotiveToInventory(oldLoco);
+                    
+                }
+                player.SetCurrenntLocomotive(loco);
+                player.RemoveLocomotiveFromInventory(loco);
+                ProcessInput_ChooseLocomotivePage();;
+                return;
+            }
+        }
+        catch(Exception e)
+        { 
+            System.out.println("There is no wagon under index ["+Command+"] ");
+            ProcessInput_ChooseLocomotivePage();
+            return;
         }
 
     }
     private void ProcessInput_ChooseWagonPage()
     {
-        System.out.println("GS_Assemble: Choose Wagon");
-        System.out.println("[B] to go back to main page");
-        Scanner scanner = new Scanner(System.in);
-        char Command = scanner.nextLine().charAt(0);
-        if (Command == 'B' || Command == 'b') {
-            currentSubPage = E_AssembleSubPage.MAIN;
+        Player player = gameManager.getPlayer();
+        Vector<Wagon> wagonArray = new Vector<Wagon>(player.GetOwnedWagons());
+
+        Render_CurrentTrainSet();
+        if (!wagonArray.isEmpty())
+        {
+            System.out.println("Pick wagon to your train set: [0-"+(wagonArray.size()-1)+"]");
         }
+        else
+        {
+            System.out.println("You do not have any wagons in your inventory!!");
+        }
+        System.out.println("[95] remove last wagon from train set");
+        System.out.println("[99] to go back to main page");
+        Scanner scanner = new Scanner(System.in);
+        int Command = scanner.nextInt();
+        try 
+        {
+            if (Command == 99 ) 
+            {
+                currentSubPage = E_AssembleSubPage.MAIN;
+                return;
+            }
+            if (Command ==95)
+            {
+                int lastWagonIndex = player.getCurrentWagonSet().size()-1;
+                Wagon lastWagon = player.getCurrentWagonSet().get(lastWagonIndex);
+                player.AddWagonToInventory(lastWagon);
+                player.RemoveWagonFromSet(lastWagonIndex);
+                
+            }
 
-
+            Wagon wagon = wagonArray.get(Command);
+            if (wagon !=null)
+            {
+                player.AddWagonsToWagonSet(wagon);
+                player.RemoveWagonFromInventory(wagon);
+                ProcessInput_ChooseWagonPage();
+                return;
+            }
+        }
+        catch(Exception e)
+        { 
+            System.out.println("There is no wagon under index ["+Command+"] ");
+            ProcessInput_ChooseWagonPage();
+            return;
+        }
+       
     }
     @Override
     public void processInput() {
@@ -152,6 +230,33 @@ public class GS_Assemble extends GameState {
             System.out.println("[ " + loco.getName()+" ]\n");
 
         }
+    }
+    public void Render_CurrentTrainSet()
+    {
+         Player player = gameManager.getPlayer();
+         String trainSetString = new String("Train: ");
+        if (player == null) 
+        {
+            System.out.println("No player assigned.");
+            return;
+        }
+        if (player.getCurrentLocomotive()== null)
+        {
+            trainSetString +="{x}.";
+        }
+        else
+        {
+            trainSetString +="{"+player.getCurrentLocomotive().getName()+"}.";
+        }
+        if (player.getCurrentWagonSet().isEmpty()) 
+        {
+            trainSetString +="No wagons";
+        }
+        for (Wagon wagon : player.getCurrentWagonSet()) {
+            trainSetString+="["+wagon.getName()+"]";
+        }
+        trainSetString +="\n";
+        System.out.println(trainSetString);
     }
     public void Render_WagonSelection()
     {

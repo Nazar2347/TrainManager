@@ -9,8 +9,8 @@ public class WagonRender {
 
     String GoodsWagood =
 
-         "|~~~~~~~~~~~~~| \n"+
-         "| Goods wagon | \n"+
+       "  |~~~~~~~~~~~~~| \n"+
+       "  | Goods wagon | \n"+
        ",_|_____________|_\n"+
       "    OOO     OOO   \n";
     String WoodWagon= 
@@ -28,7 +28,7 @@ public class WagonRender {
         "  ╔-------------╗ \n"+
         "  | Tanker Wagon| \n"+
         ",_╚≡≡≡≡≡≡≡≡≡≡≡≡≡╝_\n"+
-        "    OOO     OOO  "; 
+        "    OOO     OOO  \n"; 
     String PassangerWagon = 
     "  ╔=============╗ \n"+
     "  ║[] [] [] [] █║ \n"+
@@ -38,7 +38,7 @@ public class WagonRender {
     "  ╔=============╗ \r\n" + 
     "  ║■■■■■■■■■■■▌█║ \r\n" + 
     ",_║____________█║_\r\n" + 
-    "    OOO     OOO    ";
+    "    OOO     OOO    \n";
 
     public String RenderWagon(Wagon wagon)
     {

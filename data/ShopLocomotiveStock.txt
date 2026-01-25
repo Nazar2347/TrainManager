@@ -1,0 +1,7 @@
+#Arguments: E_LocomotiveType, emptyMass, maxMass, fuelCapacity, fuelConsumptionRate, maxWagons, maxTowedMass
+LOCOMOTIVE=SteamLocomotive,E_Type1,3000,3500,150,5,5,15000
+LOCOMOTIVE=EarlyDieselLocomotive,E_Type2,3500,3750,100,3,7,15000
+LOCOMOTIVE=DieselLocomotive,E_Type3,3000,3500,250,2,10,20000
+LOCOMOTIVE=AdvancedDieselTrain,E_Type4,3000,3100,350,2,15,25000
+
+
