@@ -1,6 +1,4 @@
 package GameLogic;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Vector;
 
@@ -10,7 +8,8 @@ import GameObjects.Wagon;
 public class Shop {
     private Vector<Locomotive> availableLocomotives;
     private Vector<Wagon> availableWagons;
-    public Shop()
+    private static Shop shop;
+    private Shop()
     {
         FileReaderUtils fileReader = new FileReaderUtils();
         HashSet<Locomotive> locomotivesFromFile = fileReader.LoadLocomotives("data/ShopLocomotiveStock.txt");
@@ -32,22 +31,15 @@ public class Shop {
         availableLocomotives.addAll(locomotivesFromFile);
         availableWagons.addAll(wagonsFromFile);
         
-
-
-        
     }
-    public void BuyFuel(Player player)
+    public static Shop GetShop()
     {
-        
-    };
-    public void BuyLocomotive()
-    {
-        //TODO: Implementation for purchasing a locomotive
-    };
-    public void BuyWagon()
-    {
-        //TODO: Implementation for purchasing a wagon
-    };
+        if (shop ==null)
+        {
+          shop = new Shop();
+        }
+        return shop;
+    }
     public Vector<Wagon>GetAvaliableWagons()
     {
         return availableWagons;

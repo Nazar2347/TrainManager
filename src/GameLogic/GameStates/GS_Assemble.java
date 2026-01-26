@@ -8,6 +8,7 @@ import GameLogic.GameManager;
 import GameLogic.Player;
 import GameObjects.Locomotive;
 import GameObjects.Wagon;
+import GameObjects.Cart;
 import Render.TrainRender;
 import Render.WagonRender;
 
@@ -24,10 +25,9 @@ public class GS_Assemble extends GameState {
 
     @Override
     public void render() {
-        System.out.println("GS_Assemble: render");
         switch (currentSubPage) {
             case MAIN:
-                //TODO: Render main assemble page
+                Render_CurrentTrainSet();
                 break;
             case CHOOSE_LOCOMOTIVE:
                 Render_LocomotiveSelection();
@@ -145,6 +145,12 @@ public class GS_Assemble extends GameState {
         Vector<Wagon> wagonArray = new Vector<Wagon>(player.GetOwnedWagons());
 
         Render_CurrentTrainSet();
+        if (player.getCurrentLocomotive()==null)
+        {
+            System.out.println("You do not have chosed locomotive !!");
+            currentSubPage = E_AssembleSubPage.MAIN;
+            return;
+        }
         if (!wagonArray.isEmpty())
         {
             System.out.println("Pick wagon to your train set: [0-"+(wagonArray.size()-1)+"]");
@@ -164,23 +170,31 @@ public class GS_Assemble extends GameState {
                 currentSubPage = E_AssembleSubPage.MAIN;
                 return;
             }
-            if (Command ==95)
+            if (Command == 95)
             {
-                int lastWagonIndex = player.getCurrentWagonSet().size()-1;
-                Wagon lastWagon = player.getCurrentWagonSet().get(lastWagonIndex);
+                short lastWagonIndex = (short)(player.getCurrentWagonSet().size()-1);
+                Wagon lastWagon = (Wagon)player.getCurrentWagonSet().get(lastWagonIndex);
+                if (lastWagon == null)
+                {
+                    System.out.println("There is no wagons attached ");
+                    ProcessInput_ChooseWagonPage();
+                    return;
+                }
                 player.AddWagonToInventory(lastWagon);
                 player.RemoveWagonFromSet(lastWagonIndex);
+                return;
                 
             }
 
             Wagon wagon = wagonArray.get(Command);
             if (wagon !=null)
             {
-                player.AddWagonsToWagonSet(wagon);
-                player.RemoveWagonFromInventory(wagon);
-                ProcessInput_ChooseWagonPage();
-                return;
+                if (player.AddWagonsToWagonSet(wagon))
+                {
+                    player.RemoveWagonFromInventory(wagon);
+                }
             }
+            ProcessInput_ChooseWagonPage();
         }
         catch(Exception e)
         { 
@@ -243,17 +257,22 @@ public class GS_Assemble extends GameState {
         if (player.getCurrentLocomotive()== null)
         {
             trainSetString +="{x}.";
+            trainSetString +="No wagons";
         }
         else
         {
             trainSetString +="{"+player.getCurrentLocomotive().getName()+"}.";
-        }
-        if (player.getCurrentWagonSet().isEmpty()) 
-        {
-            trainSetString +="No wagons";
-        }
-        for (Wagon wagon : player.getCurrentWagonSet()) {
-            trainSetString+="["+wagon.getName()+"]";
+            if (player.getCurrentWagonSet().isEmpty()) 
+            {
+                trainSetString +="No wagons";
+            }
+            else
+            {
+                for (Cart wagon : player.getCurrentWagonSet()) 
+                {
+                    trainSetString+="["+wagon.getName()+"]";
+                }
+            }
         }
         trainSetString +="\n";
         System.out.println(trainSetString);

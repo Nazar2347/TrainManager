@@ -4,11 +4,12 @@ import GameLogic.GameManager;
 import GameLogic.Player;
 
 public class Main {
-    private static Player player=new Player("Player1", 1000);
+    private static Player player=new Player("Player1", 110);
     private static GameManager gameManager=new GameManager(player);
     public static void main(String[] args) {
         System.out.println("{Train Manager}");
         gameManager.LoadPlayerData("profiles/TestProfile1/Player1.txt");
+        gameManager.LoadMission();
         while(gameManager.isRunning()) {
             gameManager.Render();
             gameManager.ReceiveInput();
