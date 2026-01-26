@@ -1,10 +1,7 @@
 package GameLogic;
-
 import GameLogic.GameStates.GS_Menu;
 import GameLogic.GameStates.GameState;
 import GameObjects.Station;
-
-
 
 public class GameManager {
 

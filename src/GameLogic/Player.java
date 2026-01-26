@@ -6,8 +6,7 @@ import java.util.Vector;
 import GameObjects.Locomotive;
 import GameObjects.Cart;
 import GameObjects.Wagon;
-import GameObjects.FreightWagon;
-import GameObjects.PassangerWagon;
+
 
 public class Player 
 {
