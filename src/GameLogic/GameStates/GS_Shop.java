@@ -74,8 +74,24 @@ public class GS_Shop extends GameState {
      }
     }
 
-    private void buyFuel() {
-        //TODO: Implementation for buying fuel and refueling locomotives
+    private void buyFuel(Player player)
+    {
+        if (player.getCurrentLocomotive()!= null)
+        {
+            Locomotive loco =player.getCurrentLocomotive();
+            float locofuel = loco.GetCurrentFuelLevel();
+            float maxfuel = loco.GetFuelCapacityLevel();
+            int cost = (int)(maxfuel-locofuel)/10;
+            int balance = player.GetMoneyBalance();
+            balance -=cost;
+            player.SetMoneyBalance(balance);
+            loco.Refuel();
+            System.out.println("Purchased!! Your balance after refueling: "+balance);
+        }
+        else
+        {
+            System.out.println("No locomotive in your current train set. Please select locomotive");
+        }
     }
 
     public void buyLocomotive(Player currentPlayer, Locomotive purcasedLocomotive) {
@@ -114,7 +130,7 @@ public class GS_Shop extends GameState {
     public void ProcessInput_MainPage()
     {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("[L]- Locomotives, [W]- wagons");
+        System.out.println("[L] - Locomotives, [W] - wagons, [F] - fuel");
         System.out.print("Enter [C] play | [E] to go back to assamble: ");
         char Command = scanner.nextLine().charAt(0);
         if (Command == 'C' || Command == 'c') {
@@ -131,6 +147,10 @@ public class GS_Shop extends GameState {
         else if (Command =='W'|| Command =='w')
         {
             page = E_ShopSubPage.WAGONS;
+        }
+        else if (Command =='F'|| Command =='f')
+        {
+            page = E_ShopSubPage.FUEL;
         }
     }
     public void ProcessInput_ChooseLocomotivePage()
@@ -167,23 +187,25 @@ public class GS_Shop extends GameState {
     }
     public void ProcessInput_ShopFuel()
     {
-        System.out.println("[B - to purchase], [N]-Cancel, return back");
         Scanner scanner = new Scanner(System.in);
+        System.out.println("[Y] - to purchase, [N] - Cancel, return back");
         char Command = scanner.nextLine().charAt(0);
-        if (Command == 'B'||Command =='b')
+        if (Command == 'Y'||Command =='y')
         {
-           shop.BuyFuel();
+           buyFuel(gameManager.getPlayer());
+           
         }
-        else if (Command =='C'|| Command =='c')
+        else if (Command =='N'|| Command =='n')
         {
             page = E_ShopSubPage.MAIN;
         }
-        int Summ = scanner.nextInt();
+        
         
     }
+    
     public void ProcessInput_ChooseWagonPage()
     {
-         System.out.println("LocomotiveShop:");
+        System.out.println("LocomotiveShop:");
         System.out.println("Type from [0 - "+shop.GetAvaliableWagons().size()+
             "] to buy certain wagon");
         System.out.println ("[99] Cancel, go back");
@@ -250,6 +272,14 @@ public class GS_Shop extends GameState {
     }
     public void Render_ShopFuel()
     {
-        System.out.println("Shop: buy fuel");
+        if (gameManager.getPlayer().getCurrentLocomotive() != null)
+        {
+            float fuel = gameManager.getPlayer().getCurrentLocomotive().GetCurrentFuelLevel();
+            float maxfuel = gameManager.getPlayer().getCurrentLocomotive().GetFuelCapacityLevel();
+            int costForRefuel = (int)(maxfuel-fuel)/10;
+            System.out.println("Your fuel level: "+fuel+" / "+maxfuel);
+            System.out.println("Cost to refuel:"+ costForRefuel);
+        }
+        
     }
 }

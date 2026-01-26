@@ -8,7 +8,6 @@ import GameObjects.Locomotive;
 import GameObjects.Wagon;
 
 public class Shop {
-    private Player player;
     private Vector<Locomotive> availableLocomotives;
     private Vector<Wagon> availableWagons;
     public Shop()
@@ -37,9 +36,9 @@ public class Shop {
 
         
     }
-    public void BuyFuel()
+    public void BuyFuel(Player player)
     {
-        //TODO: Implementation for buying fuel and refueling locomotives
+        
     };
     public void BuyLocomotive()
     {
