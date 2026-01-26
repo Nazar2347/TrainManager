@@ -20,9 +20,9 @@ public class GS_Shop extends GameState {
     private E_ShopSubPage page;
 
 
-    public GS_Shop(GameManager gm) {
+    public GS_Shop(GameManager gm ) {
         super(gm);
-        shop = new Shop();  
+        shop = Shop.GetShop();
         page = E_ShopSubPage.MAIN;      
 
     }
@@ -193,14 +193,11 @@ public class GS_Shop extends GameState {
         if (Command == 'Y'||Command =='y')
         {
            buyFuel(gameManager.getPlayer());
-           
         }
         else if (Command =='N'|| Command =='n')
         {
             page = E_ShopSubPage.MAIN;
         }
-        
-        
     }
     
     public void ProcessInput_ChooseWagonPage()
@@ -267,6 +264,9 @@ public class GS_Shop extends GameState {
     public void Render_ShopMenu()
     {
         System.out.println("Welcome to Shop!");
+        Player player = gameManager.getPlayer();
+        int playerBalance = player.GetMoneyBalance();
+        System.out.println ("Balance $: "+playerBalance);
         System.out.println("What would you like to buy?");
 
     }

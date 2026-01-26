@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Vector;
 
 import GameObjects.Locomotive;
+import GameObjects.Cart;
 import GameObjects.Wagon;
 import GameObjects.FreightWagon;
 import GameObjects.PassangerWagon;
@@ -15,7 +16,6 @@ public class Player
     private HashSet<Locomotive> ownedLocomotives;
     private HashSet<Wagon> ownedWagons;
     private Locomotive currentLocomotive;
-    private Vector<Wagon> wagonsSet;
 
     public Player(String name, int startingBalance)
     {
@@ -23,7 +23,6 @@ public class Player
         this.moneyBalance = startingBalance;
         this.ownedLocomotives = new HashSet<Locomotive>();
         this.ownedWagons = new HashSet<Wagon>();
-        this.wagonsSet = new Vector<Wagon>();
     }
     public int GetMoneyBalance()
     {
@@ -61,9 +60,9 @@ public class Player
     {
         return currentLocomotive;
     }
-    public Vector<Wagon> getCurrentWagonSet()
+    public Vector<Cart> getCurrentWagonSet()
     {
-        return wagonsSet;
+        return currentLocomotive.GetAttachedWagons();
     }
     public void RemoveLocomotiveFromInventory(Locomotive loco)
     {
@@ -85,13 +84,22 @@ public class Player
     {
         this.ownedLocomotives.addAll(locomotives);
     };
-    public void AddWagonsToWagonSet(Wagon wag)
+    public boolean AddWagonsToWagonSet(Wagon wag)
     {
-        wagonsSet.add(wag);
+      if (currentLocomotive == null)
+      {
+        return false;
+      }
+      return currentLocomotive.AttachWagon(wag);
+        
     }
-    public void RemoveWagonFromSet(int index)
+    public void RemoveWagonFromSet(short index)
     {
-        wagonsSet.removeElementAt(index);
+        if (currentLocomotive == null)
+        {
+            return;
+        }
+        currentLocomotive.DetachWagon(index);
     }
 
     

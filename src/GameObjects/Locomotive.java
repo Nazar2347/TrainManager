@@ -1,5 +1,6 @@
 package GameObjects;
 import GameLogic.Player;
+import java.util.Vector;
 import java.util.List;
 
 public class Locomotive extends Cart {
@@ -9,7 +10,7 @@ private float fuelCapacity;
 private float currentFuelLevel;
 private float fuelConsumptionRate; // fuel consumed per unit distance
 
-private List<Wagon> attachedWagons;
+private Vector<Cart> attachedWagons;
 private int maxWagons;
 private float maxTowedMass;
 private float currentTowedMass;
@@ -23,33 +24,23 @@ public Locomotive(String name,E_LocomotiveType locotype, float emptyMass, float 
     this.fuelConsumptionRate = fuelConsumptionRate;
     this.maxWagons = maxWagons;
     this.maxTowedMass = maxTowedMass;
-    this.attachedWagons = new java.util.ArrayList<Wagon>();
+    this.attachedWagons = new Vector<Cart>();
 }
-public void SetDriver(Player player)
-{
-    this.driverName = player.getName();
-}
-public void RemoveDriver()
-{
-    this.driverName = null;
-}
+
 public E_LocomotiveType GetLocomotiveType()
 {
     return this.type;
 }
-public void Input_Drive()
+public boolean Input_Drive()
 {
-    if(driverName ==null)
-    {
-        System.out.println("No driver assigned to the locomotive.");
-        return;
-    }
     if (currentFuelLevel <= 0)
     {
         System.out.println("Locomotive is out of fuel.");
-        //Add logic to direct switch state to shop or Lose
-        return;
+        //TODO: Add logic to go shop fuel
+        return false;
     }
+    ConsumeFuel();
+    return true;
 
 };
 public void Refuel()
@@ -66,20 +57,34 @@ public float GetCurrentFuelLevel()
 }
 private void ConsumeFuel()
 {
-//TODO: Implementation for fuel consumption during driving
+    float summWeight=0;
+    if (attachedWagons == null)
+    {
+        summWeight = this.currentMass;
+    }
+    else 
+    {
+        for (Cart i : attachedWagons)
+        {   
+            summWeight +=i.currentMass;
+        }
+        summWeight +=this.currentMass;
+    }
+    currentFuelLevel-= summWeight/100;
 };
-private void AttachWagon(Wagon wagon)
+public boolean AttachWagon(Wagon wagon)
 {
     if (attachedWagons.size() >= maxWagons) {
         System.out.println("Cannot attach more wagons: maximum limit reached.");
-        return;
+        return false;
     }
     if (currentTowedMass + wagon.GetMass() > maxTowedMass) {
         System.out.println("Cannot attach wagon: exceeding maximum towed mass.");
-        return;
+        return false;
     }
     attachedWagons.add(wagon);
     currentTowedMass += wagon.GetMass();
+    return true;
 };
 public void DetachWagon(short wagonIndex)
 {
@@ -91,7 +96,7 @@ public void DetachWagon(short wagonIndex)
         System.out.println("Invalid wagon index.");
         return;
     }
-    Wagon wagon = attachedWagons.get(wagonIndex);
+    Cart wagon = attachedWagons.get(wagonIndex);
     attachedWagons.remove(wagonIndex);
     currentTowedMass -= wagon.GetMass();
 };
@@ -100,6 +105,10 @@ public String getName()
    return name;
 };
 
+public Vector<Cart> GetAttachedWagons()
+{
+    return attachedWagons;
+}
 public void OnBeginPlay()
 {
 //TODO: Initialization code when the locomotive is created
