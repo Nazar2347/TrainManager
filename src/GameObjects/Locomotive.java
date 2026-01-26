@@ -52,10 +52,18 @@ public void Input_Drive()
     }
 
 };
-public void Refuel(float amount)
+public void Refuel()
 {
-    currentFuelLevel = Math.min(fuelCapacity, currentFuelLevel + amount);
+    currentFuelLevel = fuelCapacity;
 };
+public float GetFuelCapacityLevel()
+{
+    return fuelCapacity;
+}
+public float GetCurrentFuelLevel()
+{
+    return currentFuelLevel;
+}
 private void ConsumeFuel()
 {
 //TODO: Implementation for fuel consumption during driving
