@@ -8,7 +8,8 @@ private E_CargoType cargoType;
     public String getName() {
         return cargoType.toString() + " Cargo";
     }
-    public FreightCargo(E_CargoType cargoType) {
+    public FreightCargo(float mass,E_CargoType cargoType) {
+        super(mass);
         this.cargoType = cargoType;
     }
     
