@@ -1,11 +1,11 @@
 package GameObjects;
   
-import java.util.HashSet;
+import java.util.List;
 
 public abstract class Wagon extends Cart
  {
     
-    protected HashSet<Cargo> loadedCargo;
+    protected List<Cargo> loadedCargo;
     
     public Wagon(String name,float emptyMass, float maxMass)
     {
@@ -13,8 +13,12 @@ public abstract class Wagon extends Cart
         
     };
     
+    public List<Cargo> GetCargo()
+    {
+        return loadedCargo;
+    }
     
-    protected abstract void LoadCargo(Cargo cargo);
+    public abstract void LoadCargo(Cargo cargo);
 
-    protected abstract void UnloadCargo();
+    public abstract void UnloadCargo();
 }
